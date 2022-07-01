@@ -24,6 +24,7 @@ import org.apache.hudi.PublicAPIMethod;
 import org.apache.hudi.common.config.TypedProperties;
 import org.apache.hudi.common.util.Option;
 import org.apache.hudi.utilities.callback.SourceCommitCallback;
+import org.apache.hudi.utilities.schema.ProtobufSchemaProvider;
 import org.apache.hudi.utilities.schema.SchemaProvider;
 
 import org.apache.spark.api.java.JavaSparkContext;
@@ -38,13 +39,14 @@ import java.io.Serializable;
 public abstract class Source<T> implements SourceCommitCallback, Serializable {
 
   public enum SourceType {
-    JSON, AVRO, ROW
+    JSON, AVRO, ROW, PROTOBUF
   }
 
   protected transient TypedProperties props;
   protected transient JavaSparkContext sparkContext;
   protected transient SparkSession sparkSession;
   private transient SchemaProvider overriddenSchemaProvider;
+  private transient ProtobufSchemaProvider overriddenGrabSchemaProvider;
 
   private final SourceType sourceType;
 
@@ -61,7 +63,14 @@ public abstract class Source<T> implements SourceCommitCallback, Serializable {
     this.overriddenSchemaProvider = schemaProvider;
     this.sourceType = sourceType;
   }
-
+  protected Source(TypedProperties props, JavaSparkContext sparkContext, SparkSession sparkSession,
+                   ProtobufSchemaProvider schemaProvider, SourceType sourceType) {
+    this.props = props;
+    this.sparkContext = sparkContext;
+    this.sparkSession = sparkSession;
+    this.overriddenGrabSchemaProvider = schemaProvider;
+    this.sourceType = sourceType;
+  }
   @PublicAPIMethod(maturity = ApiMaturityLevel.STABLE)
   protected abstract InputBatch<T> fetchNewData(Option<String> lastCkptStr, long sourceLimit);
 

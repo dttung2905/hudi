@@ -307,8 +307,15 @@
     <dependency>
       <groupId>io.confluent</groupId>
       <artifactId>kafka-schema-registry-client</artifactId>
-      <version>${confluent.version}</version>
+      <version>7.1.1</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry -->
+    <dependency>
+      <groupId>io.confluent</groupId>
+      <artifactId>kafka-schema-registry</artifactId>
+      <version>7.1.1</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.apache.kafka</groupId>
@@ -497,11 +504,23 @@
       <artifactId>junit-platform-commons</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.avro/avro-protobuf -->
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro-protobuf</artifactId>
+      <version>1.11.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.apache.hudi</groupId>
+          <artifactId>hudi-flink</artifactId>
+          <version>0.12.0-SNAPSHOT</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 </project>
