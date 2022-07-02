@@ -63,6 +63,7 @@ public abstract class Source<T> implements SourceCommitCallback, Serializable {
     this.overriddenSchemaProvider = schemaProvider;
     this.sourceType = sourceType;
   }
+
   protected Source(TypedProperties props, JavaSparkContext sparkContext, SparkSession sparkSession,
                    ProtobufSchemaProvider schemaProvider, SourceType sourceType) {
     this.props = props;
@@ -71,6 +72,7 @@ public abstract class Source<T> implements SourceCommitCallback, Serializable {
     this.overriddenGrabSchemaProvider = schemaProvider;
     this.sourceType = sourceType;
   }
+
   @PublicAPIMethod(maturity = ApiMaturityLevel.STABLE)
   protected abstract InputBatch<T> fetchNewData(Option<String> lastCkptStr, long sourceLimit);
 
