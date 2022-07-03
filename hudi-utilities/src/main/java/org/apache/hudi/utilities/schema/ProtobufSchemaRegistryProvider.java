@@ -18,6 +18,7 @@
 
 package org.apache.hudi.utilities.schema;
 
+import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaMetadata;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
@@ -33,12 +34,22 @@ public class ProtobufSchemaRegistryProvider extends ProtobufSchemaProvider {
   private TypedProperties config;
   private SchemaRegistryClient schemaRegistry;
 
+  public static class Config {
+    public static final int CACHED_CAPACITY_PER_SUBJECT = 100;
+  }
+
   public ProtobufSchemaRegistryProvider(TypedProperties props, JavaSparkContext jssc) {
     super(props, jssc);
   }
 
   public ProtobufSchema fetchSchemaFromRegistry(String registryUrl) throws IOException, RestClientException {
     String subjectName = getSubjectName(registryUrl);
+    if (schemaRegistry == null) {
+      schemaRegistry = new CachedSchemaRegistryClient(
+              registryUrl,
+              Config.CACHED_CAPACITY_PER_SUBJECT
+      );
+    }
     final SchemaMetadata metadata = schemaRegistry.getLatestSchemaMetadata(subjectName);
     final int id = metadata.getId();
 
