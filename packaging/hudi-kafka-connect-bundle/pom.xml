@@ -134,6 +134,14 @@
                                     <include>org.apache.htrace:htrace-core4</include>
                                     <include>org.scala-lang:*</include>
                                     <include>commons-io:commons-io</include>
+                                    <include>com.squareup.wire:wire-runtime-jvm:*</include>
+                                    <include>kafka-connect-protobuf-converter:*</include>
+                                    <include>kafka-protobuf-provider:*</include>
+                                    <include>kafka-json-schema-provider:*</include>
+                                    <include>kafka-schema-registry:*</include>
+                                    <include>kafka-schema-serializer:*</include>
+                                    <include>com.google.guava:*</include>
+                                    <include>*:*</include>
                                 </includes>
                             </artifactSet>
                             <relocations>
@@ -434,6 +442,12 @@
             <artifactId>hive-common</artifactId>
             <version>${hive.version}</version>
             <scope>${utilities.bundle.hive.scope}</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-connect-protobuf-converter -->
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-connect-protobuf-converter</artifactId>
+            <version>7.1.1</version>
         </dependency>
 
     </dependencies>

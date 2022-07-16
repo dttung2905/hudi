@@ -169,6 +169,12 @@
             <version>${proto.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.confluent/kafka-connect-protobuf-converter -->
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-connect-protobuf-converter</artifactId>
+            <version>7.1.1</version>
+        </dependency>
         <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
